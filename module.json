@@ -1,0 +1,31 @@
+{
+  "id": "regionactiveeffects",
+  "title": "Region Active Effects",
+  "version": "0.1.0",
+  "description": "Region Active Effects lets you attach active effects to regions.",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12"
+  },
+  "authors": [
+    {
+      "name": "kaelad",
+      "discord": "kaelad",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "src/regionactiveeffects.js"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "url": "replaced by workflow",
+  "manifest": "replaced by workflow",
+  "download": "replaced by workflow",
+  "readme": "replaced by workflow"
+}
