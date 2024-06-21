@@ -1,1 +1,7 @@
-{}
+{
+  "TYPES.RegionBehavior.regionactiveeffects.statusEffect": "Status Effect",
+  "RAE.TYPES.statusEffect.FIELDS.statusId.label": "Status",
+  "RAE.TYPES.statusEffect.FIELDS.statusId.hint": "The status effect to apply when one of the events occurs.",
+  "RAE.TYPES.statusEffect.FIELDS.overlay.label": "Overlay",
+  "RAE.TYPES.statusEffect.FIELDS.overlay.hint": "Display the status effect as an overlay."
+}

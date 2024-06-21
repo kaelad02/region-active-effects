@@ -24,6 +24,11 @@
       "path": "lang/en.json"
     }
   ],
+  "documentTypes": {
+    "RegionBehavior": {
+      "statusEffect": {}
+    }
+  },
   "url": "replaced by workflow",
   "manifest": "replaced by workflow",
   "download": "replaced by workflow",
