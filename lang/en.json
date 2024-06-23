@@ -1,7 +1,10 @@
 {
   "TYPES.RegionBehavior.regionactiveeffects.statusEffect": "Status Effect",
+  "TYPES.RegionBehavior.regionactiveeffects.activeEffect": "Active Effect",
   "RAE.TYPES.statusEffect.FIELDS.statusId.label": "Status",
   "RAE.TYPES.statusEffect.FIELDS.statusId.hint": "The status effect to apply when one of the events occurs.",
   "RAE.TYPES.statusEffect.FIELDS.overlay.label": "Overlay",
-  "RAE.TYPES.statusEffect.FIELDS.overlay.hint": "Display the status effect as an overlay."
+  "RAE.TYPES.statusEffect.FIELDS.overlay.hint": "Display the status effect as an overlay.",
+  "RAE.TYPES.activeEffect.FIELDS.effect.label": "Effect",
+  "RAE.TYPES.activeEffect.FIELDS.effect.hint": "The active effect to apply when the token is in the region."
 }

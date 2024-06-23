@@ -26,7 +26,8 @@
   ],
   "documentTypes": {
     "RegionBehavior": {
-      "statusEffect": {}
+      "statusEffect": {},
+      "activeEffect": {}
     }
   },
   "url": "replaced by workflow",
