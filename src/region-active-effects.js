@@ -19,6 +19,13 @@ Hooks.once("init", () => {
   );
 });
 
+function statusEffectChoices() {
+  return CONFIG.statusEffects.reduce((obj, statusEffect) => {
+    obj[statusEffect.id] = statusEffect.name;
+    return obj;
+  }, {});
+}
+
 /**
  * The data model for a behavior that applies a status effect while inside the Region.
  */
@@ -30,11 +37,7 @@ class StatusEffectRegionBehaviorType extends RegionBehaviorType {
         blank: false,
         nullable: true,
         initial: null,
-        // TODO sort choices by label
-        choices: CONFIG.statusEffects.reduce((obj, statusEffect) => {
-          obj[statusEffect.id] = statusEffect.name;
-          return obj;
-        }, {}),
+        choices: statusEffectChoices,
         label: "RAE.TYPES.statusEffect.FIELDS.statusId.label",
         hint: "RAE.TYPES.statusEffect.FIELDS.statusId.hint",
       }),
