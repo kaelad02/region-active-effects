@@ -1,7 +1,13 @@
 {
   "TYPES.RegionBehavior.region-active-effects.statusEffect": "Status Effect",
+  "TYPES.RegionBehavior.region-active-effects.statusEffectEvents": "Status Effect Events",
   "RAE.TYPES.statusEffect.FIELDS.statusId.label": "Status",
   "RAE.TYPES.statusEffect.FIELDS.statusId.hint": "The status effect to apply when one of the events occurs.",
   "RAE.TYPES.statusEffect.FIELDS.overlay.label": "Overlay",
-  "RAE.TYPES.statusEffect.FIELDS.overlay.hint": "Display the status effect as an overlay."
+  "RAE.TYPES.statusEffect.FIELDS.overlay.hint": "Display the status effect as an overlay.",
+  "RAE.TYPES.statusEffectEvents.FIELDS.action.choices.toggle": "Toggle",
+  "RAE.TYPES.statusEffectEvents.FIELDS.action.choices.apply": "Apply",
+  "RAE.TYPES.statusEffectEvents.FIELDS.action.choices.remove": "Remove",
+  "RAE.TYPES.statusEffectEvents.FIELDS.action.label": "Action",
+  "RAE.TYPES.statusEffectEvents.FIELDS.action.hint": "What to do with the status effect."
 }
