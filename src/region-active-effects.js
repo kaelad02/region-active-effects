@@ -78,6 +78,9 @@ class StatusEffectRegionBehaviorType extends RegionBehaviorType {
   };
 }
 
+/**
+ * The data model for a behavior that toggles, adds, or removes a status effect based on the subscribed event.
+ */
 class StatusEffectEventsRegionBehaviorType extends RegionBehaviorType {
   static defineSchema() {
     return {
