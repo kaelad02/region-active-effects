@@ -1,5 +1,5 @@
 {
-  "id": "regionactiveeffects",
+  "id": "region-active-effects",
   "title": "Region Active Effects",
   "version": "0.1.0",
   "description": "Region Active Effects lets you attach active effects to regions.",
@@ -15,7 +15,7 @@
     }
   ],
   "esmodules": [
-    "src/regionactiveeffects.js"
+    "src/region-active-effects.js"
   ],
   "languages": [
     {

@@ -4,16 +4,16 @@ const { BooleanField, StringField } = foundry.data.fields;
 Hooks.once("init", () => {
   // register the DataModel
   Object.assign(CONFIG.RegionBehavior.dataModels, {
-    "regionactiveeffects.statusEffect": StatusEffectRegionBehaviorType,
+    "region-active-effects.statusEffect": StatusEffectRegionBehaviorType,
   });
 
   // register the Sheet
   DocumentSheetConfig.registerSheet(
     RegionBehavior,
-    "regionactiveeffects",
+    "region-active-effects",
     foundry.applications.sheets.RegionBehaviorConfig,
     {
-      types: ["regionactiveeffects.statusEffect"],
+      types: ["region-active-effects.statusEffect"],
       makeDefault: true,
     }
   );
