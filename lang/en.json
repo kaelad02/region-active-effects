@@ -2,6 +2,7 @@
   "TYPES.RegionBehavior.region-active-effects.statusEffect": "Status Effect",
   "TYPES.RegionBehavior.region-active-effects.statusEffectEvents": "Status Effect Events",
   "TYPES.RegionBehavior.region-active-effects.activeEffect": "Active Effect",
+  "TYPES.RegionBehavior.region-active-effects.activeEffectEvents": "Active Effect Events",
   "RAE.TYPES.statusEffect.FIELDS.statusId.label": "Status",
   "RAE.TYPES.statusEffect.FIELDS.statusId.hint": "The status effect to apply when one of the events occurs.",
   "RAE.TYPES.statusEffect.FIELDS.overlay.label": "Overlay",
@@ -14,5 +15,9 @@
   "RAE.TYPES.activeEffect.FIELDS.uuid.label": "Active Effect",
   "RAE.TYPES.activeEffect.FIELDS.uuid.hint": "The Active Effect to use when a token enters the Region.",
   "RAE.TYPES.activeEffect.FIELDS.disable.label": "Disable Effect",
-  "RAE.TYPES.activeEffect.FIELDS.disable.hint": "Disable the active effect when leaving the Region instead of deleting it."
+  "RAE.TYPES.activeEffect.FIELDS.disable.hint": "Disable the active effect when leaving the Region instead of deleting it.",
+  "RAE.TYPES.activeEffectEvents.FIELDS.action.label": "Action",
+  "RAE.TYPES.activeEffectEvents.FIELDS.action.hint": "What to do with an active effect.",
+  "RAE.TYPES.activeEffectEvents.FIELDS.name.label": "Effect Name",
+  "RAE.TYPES.activeEffectEvents.FIELDS.name.hint": "The name of the active effect to enable/disable/delete."
 }

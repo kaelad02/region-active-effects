@@ -27,7 +27,8 @@
     "RegionBehavior": {
       "statusEffect": {},
       "statusEffectEvents": {},
-      "activeEffect": {}
+      "activeEffect": {},
+      "activeEffectEvents": {}
     }
   },
   "url": "replaced by workflow",

@@ -7,6 +7,7 @@ Hooks.once("init", () => {
     "region-active-effects.statusEffect": StatusEffectRegionBehaviorType,
     "region-active-effects.statusEffectEvents": StatusEffectEventsRegionBehaviorType,
     "region-active-effects.activeEffect": ActiveEffectRegionBehaviorType,
+    "region-active-effects.activeEffectEvents": ActiveEffectEventsRegionBehaviorType,
   });
 
   // register the Sheet
@@ -19,6 +20,7 @@ Hooks.once("init", () => {
         "region-active-effects.statusEffect",
         "region-active-effects.statusEffectEvents",
         "region-active-effects.activeEffect",
+        "region-active-effects.activeEffectEvents",
       ],
       makeDefault: true,
     }
@@ -192,4 +194,92 @@ class ActiveEffectRegionBehaviorType extends RegionBehaviorType {
     [CONST.REGION_EVENTS.TOKEN_ENTER]: this.#onTokenEnter,
     [CONST.REGION_EVENTS.TOKEN_EXIT]: this.#onTokenExit,
   };
+}
+
+/**
+ * Add an active effect (needs UUID)
+ * Reset the duration of an active effect (needs UUID)
+ * Enable/Disable an active effect (needs String for name)
+ * Remove an active effect (needs String for name)
+ */
+class ActiveEffectEventsRegionBehaviorType extends RegionBehaviorType {
+  static defineSchema() {
+    return {
+      events: this._createEventsField(),
+      action: new StringField({
+        required: true,
+        blank: false,
+        nullable: true,
+        choices: {
+          add: "Add",
+          resetDuration: "Reset Duration",
+          enable: "Enable",
+          disable: "Disable",
+          delete: "Delete",
+        },
+        label: "RAE.TYPES.activeEffectEvents.FIELDS.action.label",
+        hint: "RAE.TYPES.activeEffectEvents.FIELDS.action.hint",
+      }),
+      uuid: new DocumentUUIDField({
+        type: "ActiveEffect",
+        label: "RAE.TYPES.activeEffect.FIELDS.uuid.label",
+        hint: "RAE.TYPES.activeEffect.FIELDS.uuid.hint",
+      }),
+      name: new StringField({
+        required: false,
+        blank: false,
+        nullable: false,
+        label: "RAE.TYPES.activeEffectEvents.FIELDS.name.label",
+        hint: "RAE.TYPES.activeEffectEvents.FIELDS.name.hint",
+      }),
+    };
+  }
+
+  static validateJoint(data) {
+    if (["add", "resetDuration"].includes(data.action) && !data.uuid)
+      throw new Error(`The uuid field is required for the ${data.action} action`);
+    if (["enable", "disable", "delete"].includes(data.action) && !data.name)
+      throw new Error(`The name field is required for the ${data.action} action`);
+  }
+
+  async _handleRegionEvent(event) {
+    // quick data verification
+    const actor = event.data?.token?.actor;
+    if (!actor) return;
+
+    // only run once by active GM
+    if (!game.users.activeGM?.isSelf) return;
+
+    switch (this.action) {
+      case "add":
+        const effect = await fromUuid(this.uuid);
+        applyEffectToActor(effect, actor, this.parent);
+        break;
+      case "resetDuration":
+        this.#onResetDuration(actor);
+        break;
+      case "enable":
+        this.#onEnableDisable(actor, false);
+        break;
+      case "disable":
+        this.#onEnableDisable(actor, true);
+        break;
+      case "delete":
+        const existingEffect = actor.effects.getName(this.name);
+        if (existingEffect) await existingEffect.delete();
+        break;
+    }
+  }
+
+  async #onResetDuration(actor) {
+    const effect = await fromUuid(this.uuid);
+    const existingEffect = actor.effects.getName(effect.name);
+    if (existingEffect)
+      return existingEffect.update({ ...effect.constructor.getInitialDuration() });
+  }
+
+  async #onEnableDisable(actor, disabled) {
+    const existingEffect = actor.effects.getName(this.name);
+    if (existingEffect) return existingEffect.update({ disabled });
+  }
 }
