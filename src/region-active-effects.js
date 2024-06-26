@@ -263,7 +263,7 @@ class ActiveEffectEventsRegionBehaviorType extends RegionBehaviorType {
       uuid: new DocumentUUIDField({
         type: "ActiveEffect",
         label: "RAE.TYPES.activeEffect.FIELDS.uuid.label",
-        hint: "RAE.TYPES.activeEffect.FIELDS.uuid.hint",
+        hint: "RAE.TYPES.activeEffectEvents.FIELDS.uuid.hint",
       }),
       name: new StringField({
         required: false,
