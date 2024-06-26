@@ -99,7 +99,20 @@ class StatusEffectRegionBehaviorType extends RegionBehaviorType {
 class StatusEffectEventsRegionBehaviorType extends RegionBehaviorType {
   static defineSchema() {
     return {
-      events: this._createEventsField(),
+      events: this._createEventsField({
+        events: [
+          CONST.REGION_EVENTS.TOKEN_ENTER,
+          CONST.REGION_EVENTS.TOKEN_EXIT,
+          CONST.REGION_EVENTS.TOKEN_MOVE,
+          CONST.REGION_EVENTS.TOKEN_MOVE_IN,
+          CONST.REGION_EVENTS.TOKEN_MOVE_OUT,
+          CONST.REGION_EVENTS.TOKEN_PRE_MOVE,
+          CONST.REGION_EVENTS.TOKEN_ROUND_END,
+          CONST.REGION_EVENTS.TOKEN_ROUND_START,
+          CONST.REGION_EVENTS.TOKEN_TURN_END,
+          CONST.REGION_EVENTS.TOKEN_TURN_START,
+        ],
+      }),
       statusId: new StringField({
         required: true,
         blank: false,
@@ -134,6 +147,9 @@ class StatusEffectEventsRegionBehaviorType extends RegionBehaviorType {
     // quick data verification
     const actor = event.data?.token?.actor;
     if (!actor || !this.statusId) return;
+
+    // only run once by active GM
+    if (!game.users.activeGM?.isSelf) return;
 
     const active = this.action === "apply" ? true : this.action === "remove" ? false : undefined;
     actor.toggleStatusEffect(this.statusId, { active, overlay: this.overlay });
@@ -216,7 +232,20 @@ class ActiveEffectEventsRegionBehaviorType extends RegionBehaviorType {
 
   static defineSchema() {
     return {
-      events: this._createEventsField(),
+      events: this._createEventsField({
+        events: [
+          CONST.REGION_EVENTS.TOKEN_ENTER,
+          CONST.REGION_EVENTS.TOKEN_EXIT,
+          CONST.REGION_EVENTS.TOKEN_MOVE,
+          CONST.REGION_EVENTS.TOKEN_MOVE_IN,
+          CONST.REGION_EVENTS.TOKEN_MOVE_OUT,
+          CONST.REGION_EVENTS.TOKEN_PRE_MOVE,
+          CONST.REGION_EVENTS.TOKEN_ROUND_END,
+          CONST.REGION_EVENTS.TOKEN_ROUND_START,
+          CONST.REGION_EVENTS.TOKEN_TURN_END,
+          CONST.REGION_EVENTS.TOKEN_TURN_START,
+        ],
+      }),
       action: new StringField({
         required: true,
         blank: false,
