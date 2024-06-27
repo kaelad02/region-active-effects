@@ -10,6 +10,14 @@ Hooks.once("init", () => {
     "region-active-effects.activeEffectEvents": ActiveEffectEventsRegionBehaviorType,
   });
 
+  // add type icons
+  Object.assign(CONFIG.RegionBehavior.typeIcons, {
+    "region-active-effects.statusEffect": "fa-solid fa-person-burst",
+    "region-active-effects.statusEffectEvents": "fa-solid fa-person-burst",
+    "region-active-effects.activeEffect": "fa-solid fa-gears",
+    "region-active-effects.activeEffectEvents": "fa-solid fa-gears",
+  });
+
   // register the Sheet
   DocumentSheetConfig.registerSheet(
     RegionBehavior,
