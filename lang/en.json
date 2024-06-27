@@ -18,6 +18,7 @@
   "RAE.TYPES.activeEffect.FIELDS.disable.hint": "Disable the active effect when leaving the Region instead of deleting it.",
   "RAE.TYPES.activeEffectEvents.FIELDS.action.label": "Action",
   "RAE.TYPES.activeEffectEvents.FIELDS.action.hint": "What to do with an active effect.",
+  "RAE.TYPES.activeEffectEvents.FIELDS.uuid.label": "Active Effect",
   "RAE.TYPES.activeEffectEvents.FIELDS.uuid.hint": "The Active Effect to add or reset duration.",
   "RAE.TYPES.activeEffectEvents.FIELDS.name.label": "Effect Name",
   "RAE.TYPES.activeEffectEvents.FIELDS.name.hint": "The name of the active effect to enable/disable/delete."

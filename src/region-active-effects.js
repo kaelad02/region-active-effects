@@ -54,6 +54,8 @@ function statusEffectChoices() {
  * The data model for a behavior that applies a status effect while inside the Region.
  */
 class StatusEffectRegionBehaviorType extends RegionBehaviorType {
+  static LOCALIZATION_PREFIXES = ["RAE.TYPES.statusEffect"];
+
   static defineSchema() {
     return {
       statusId: new StringField({
@@ -62,14 +64,8 @@ class StatusEffectRegionBehaviorType extends RegionBehaviorType {
         nullable: true,
         initial: null,
         choices: statusEffectChoices,
-        label: "RAE.TYPES.statusEffect.FIELDS.statusId.label",
-        hint: "RAE.TYPES.statusEffect.FIELDS.statusId.hint",
       }),
-      overlay: new BooleanField({
-        initial: false,
-        label: "RAE.TYPES.statusEffect.FIELDS.overlay.label",
-        hint: "RAE.TYPES.statusEffect.FIELDS.overlay.hint",
-      }),
+      overlay: new BooleanField({ initial: false }),
     };
   }
 
@@ -105,6 +101,8 @@ class StatusEffectRegionBehaviorType extends RegionBehaviorType {
  * The data model for a behavior that toggles, adds, or removes a status effect based on the subscribed event.
  */
 class StatusEffectEventsRegionBehaviorType extends RegionBehaviorType {
+  static LOCALIZATION_PREFIXES = ["RAE.TYPES.statusEffect", "RAE.TYPES.statusEffectEvents"];
+
   static defineSchema() {
     return {
       events: this._createEventsField({
@@ -127,8 +125,6 @@ class StatusEffectEventsRegionBehaviorType extends RegionBehaviorType {
         nullable: true,
         initial: null,
         choices: statusEffectChoices,
-        label: "RAE.TYPES.statusEffect.FIELDS.statusId.label",
-        hint: "RAE.TYPES.statusEffect.FIELDS.statusId.hint",
       }),
       action: new StringField({
         required: true,
@@ -140,14 +136,8 @@ class StatusEffectEventsRegionBehaviorType extends RegionBehaviorType {
           apply: "RAE.TYPES.statusEffectEvents.FIELDS.action.choices.apply",
           remove: "RAE.TYPES.statusEffectEvents.FIELDS.action.choices.remove",
         },
-        label: "RAE.TYPES.statusEffectEvents.FIELDS.action.label",
-        hint: "RAE.TYPES.statusEffectEvents.FIELDS.action.hint",
       }),
-      overlay: new BooleanField({
-        initial: false,
-        label: "RAE.TYPES.statusEffect.FIELDS.overlay.label",
-        hint: "RAE.TYPES.statusEffect.FIELDS.overlay.hint",
-      }),
+      overlay: new BooleanField({ initial: false }),
     };
   }
 
@@ -182,18 +172,12 @@ async function applyEffectToActor(effect, actor, behavior) {
 }
 
 class ActiveEffectRegionBehaviorType extends RegionBehaviorType {
+  static LOCALIZATION_PREFIXES = ["RAE.TYPES.activeEffect"];
+
   static defineSchema() {
     return {
-      uuid: new DocumentUUIDField({
-        type: "ActiveEffect",
-        label: "RAE.TYPES.activeEffect.FIELDS.uuid.label",
-        hint: "RAE.TYPES.activeEffect.FIELDS.uuid.hint",
-      }),
-      disable: new BooleanField({
-        initial: false,
-        label: "RAE.TYPES.activeEffect.FIELDS.disable.label",
-        hint: "RAE.TYPES.activeEffect.FIELDS.disable.hint",
-      }),
+      uuid: new DocumentUUIDField({ type: "ActiveEffect" }),
+      disable: new BooleanField({ initial: false }),
     };
   }
 
@@ -235,6 +219,8 @@ class ActiveEffectRegionBehaviorType extends RegionBehaviorType {
  * Remove an active effect (needs String for name)
  */
 class ActiveEffectEventsRegionBehaviorType extends RegionBehaviorType {
+  static LOCALIZATION_PREFIXES = ["RAE.TYPES.activeEffect", "RAE.TYPES.activeEffectEvents"];
+
   static UUID_ACTIONS = ["add", "resetDuration"];
   static NAME_ACTIONS = ["enable", "disable", "delete"];
 
@@ -265,21 +251,9 @@ class ActiveEffectEventsRegionBehaviorType extends RegionBehaviorType {
           disable: "Disable",
           delete: "Delete",
         },
-        label: "RAE.TYPES.activeEffectEvents.FIELDS.action.label",
-        hint: "RAE.TYPES.activeEffectEvents.FIELDS.action.hint",
       }),
-      uuid: new DocumentUUIDField({
-        type: "ActiveEffect",
-        label: "RAE.TYPES.activeEffect.FIELDS.uuid.label",
-        hint: "RAE.TYPES.activeEffectEvents.FIELDS.uuid.hint",
-      }),
-      name: new StringField({
-        required: false,
-        blank: false,
-        nullable: false,
-        label: "RAE.TYPES.activeEffectEvents.FIELDS.name.label",
-        hint: "RAE.TYPES.activeEffectEvents.FIELDS.name.hint",
-      }),
+      uuid: new DocumentUUIDField({ type: "ActiveEffect" }),
+      name: new StringField({ required: false, blank: false, nullable: false }),
     };
   }
 
