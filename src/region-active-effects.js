@@ -50,6 +50,20 @@ function statusEffectChoices() {
   }, {});
 }
 
+/** The Region Events that operate on a token. */
+const TOKEN_EVENTS = [
+  CONST.REGION_EVENTS.TOKEN_ENTER,
+  CONST.REGION_EVENTS.TOKEN_EXIT,
+  CONST.REGION_EVENTS.TOKEN_MOVE,
+  CONST.REGION_EVENTS.TOKEN_MOVE_IN,
+  CONST.REGION_EVENTS.TOKEN_MOVE_OUT,
+  CONST.REGION_EVENTS.TOKEN_PRE_MOVE,
+  CONST.REGION_EVENTS.TOKEN_ROUND_END,
+  CONST.REGION_EVENTS.TOKEN_ROUND_START,
+  CONST.REGION_EVENTS.TOKEN_TURN_END,
+  CONST.REGION_EVENTS.TOKEN_TURN_START,
+];
+
 /**
  * The data model for a behavior that applies a status effect while inside the Region.
  */
@@ -105,20 +119,7 @@ class StatusEffectEventsRegionBehaviorType extends RegionBehaviorType {
 
   static defineSchema() {
     return {
-      events: this._createEventsField({
-        events: [
-          CONST.REGION_EVENTS.TOKEN_ENTER,
-          CONST.REGION_EVENTS.TOKEN_EXIT,
-          CONST.REGION_EVENTS.TOKEN_MOVE,
-          CONST.REGION_EVENTS.TOKEN_MOVE_IN,
-          CONST.REGION_EVENTS.TOKEN_MOVE_OUT,
-          CONST.REGION_EVENTS.TOKEN_PRE_MOVE,
-          CONST.REGION_EVENTS.TOKEN_ROUND_END,
-          CONST.REGION_EVENTS.TOKEN_ROUND_START,
-          CONST.REGION_EVENTS.TOKEN_TURN_END,
-          CONST.REGION_EVENTS.TOKEN_TURN_START,
-        ],
-      }),
+      events: this._createEventsField({ events: TOKEN_EVENTS }),
       statusId: new StringField({
         required: true,
         blank: false,
@@ -171,6 +172,9 @@ async function applyEffectToActor(effect, actor, behavior) {
   return ActiveEffect.implementation.create(effectData, { parent: actor });
 }
 
+/**
+ * The data model for a behavior that adds an Active Effect while inside the Region.
+ */
 class ActiveEffectRegionBehaviorType extends RegionBehaviorType {
   static LOCALIZATION_PREFIXES = ["RAE.TYPES.activeEffect"];
 
@@ -213,10 +217,7 @@ class ActiveEffectRegionBehaviorType extends RegionBehaviorType {
 }
 
 /**
- * Add an active effect (needs UUID)
- * Reset the duration of an active effect (needs UUID)
- * Enable/Disable an active effect (needs String for name)
- * Remove an active effect (needs String for name)
+ * The data model for a behavior that can perform certain actions with active effects based on the subscribed event.
  */
 class ActiveEffectEventsRegionBehaviorType extends RegionBehaviorType {
   static LOCALIZATION_PREFIXES = ["RAE.TYPES.activeEffect", "RAE.TYPES.activeEffectEvents"];
@@ -226,20 +227,7 @@ class ActiveEffectEventsRegionBehaviorType extends RegionBehaviorType {
 
   static defineSchema() {
     return {
-      events: this._createEventsField({
-        events: [
-          CONST.REGION_EVENTS.TOKEN_ENTER,
-          CONST.REGION_EVENTS.TOKEN_EXIT,
-          CONST.REGION_EVENTS.TOKEN_MOVE,
-          CONST.REGION_EVENTS.TOKEN_MOVE_IN,
-          CONST.REGION_EVENTS.TOKEN_MOVE_OUT,
-          CONST.REGION_EVENTS.TOKEN_PRE_MOVE,
-          CONST.REGION_EVENTS.TOKEN_ROUND_END,
-          CONST.REGION_EVENTS.TOKEN_ROUND_START,
-          CONST.REGION_EVENTS.TOKEN_TURN_END,
-          CONST.REGION_EVENTS.TOKEN_TURN_START,
-        ],
-      }),
+      events: this._createEventsField({ events: TOKEN_EVENTS }),
       action: new StringField({
         required: true,
         blank: false,
