@@ -1,25 +1,35 @@
 {
-  "TYPES.RegionBehavior.region-active-effects.statusEffect": "Status Effect",
-  "TYPES.RegionBehavior.region-active-effects.statusEffectEvents": "Status Effect Events",
-  "TYPES.RegionBehavior.region-active-effects.activeEffect": "Active Effect",
-  "TYPES.RegionBehavior.region-active-effects.activeEffectEvents": "Active Effect Events",
-  "RAE.TYPES.statusEffect.FIELDS.statusId.label": "Status",
-  "RAE.TYPES.statusEffect.FIELDS.statusId.hint": "The status effect to apply when one of the events occurs.",
-  "RAE.TYPES.statusEffect.FIELDS.overlay.label": "Overlay",
-  "RAE.TYPES.statusEffect.FIELDS.overlay.hint": "Display the status effect as an overlay.",
-  "RAE.TYPES.statusEffectEvents.FIELDS.action.choices.toggle": "Toggle",
-  "RAE.TYPES.statusEffectEvents.FIELDS.action.choices.apply": "Apply",
-  "RAE.TYPES.statusEffectEvents.FIELDS.action.choices.remove": "Remove",
-  "RAE.TYPES.statusEffectEvents.FIELDS.action.label": "Action",
-  "RAE.TYPES.statusEffectEvents.FIELDS.action.hint": "What to do with the status effect.",
-  "RAE.TYPES.activeEffect.FIELDS.uuid.label": "Active Effect",
-  "RAE.TYPES.activeEffect.FIELDS.uuid.hint": "The Active Effect to use when a token enters the Region.",
-  "RAE.TYPES.activeEffect.FIELDS.disable.label": "Disable Effect",
-  "RAE.TYPES.activeEffect.FIELDS.disable.hint": "Disable the active effect when leaving the Region instead of deleting it.",
-  "RAE.TYPES.activeEffectEvents.FIELDS.action.label": "Action",
-  "RAE.TYPES.activeEffectEvents.FIELDS.action.hint": "What to do with an active effect.",
-  "RAE.TYPES.activeEffectEvents.FIELDS.uuid.label": "Active Effect",
-  "RAE.TYPES.activeEffectEvents.FIELDS.uuid.hint": "The Active Effect to add or reset duration.",
-  "RAE.TYPES.activeEffectEvents.FIELDS.name.label": "Effect Name",
-  "RAE.TYPES.activeEffectEvents.FIELDS.name.hint": "The name of the active effect to enable/disable/delete."
+  "TYPES.RegionBehavior": {
+    "region-active-effects.statusEffect": "Status Effect",
+    "region-active-effects.statusEffectEvents": "Status Effect Events",
+    "region-active-effects.activeEffect": "Active Effect",
+    "region-active-effects.activeEffectEvents": "Active Effect Events"
+  },
+  "RAE.TYPES.statusEffect": {
+    "FIELDS.statusId.label": "Status",
+    "FIELDS.statusId.hint": "The status effect to apply when one of the events occurs.",
+    "FIELDS.overlay.label": "Overlay",
+    "FIELDS.overlay.hint": "Display the status effect as an overlay."
+  },
+  "RAE.TYPES.statusEffectEvents": {
+    "FIELDS.action.choices.toggle": "Toggle",
+    "FIELDS.action.choices.apply": "Apply",
+    "FIELDS.action.choices.remove": "Remove",
+    "FIELDS.action.label": "Action",
+    "FIELDS.action.hint": "What to do with the status effect."
+  },
+  "RAE.TYPES.activeEffect": {
+    "FIELDS.uuid.label": "Active Effect",
+    "FIELDS.uuid.hint": "The Active Effect to use when a token enters the Region.",
+    "FIELDS.disable.label": "Disable Effect",
+    "FIELDS.disable.hint": "Disable the active effect when leaving the Region instead of deleting it."
+  },
+  "RAE.TYPES.activeEffectEvents": {
+    "FIELDS.action.label": "Action",
+    "FIELDS.action.hint": "What to do with an active effect.",
+    "FIELDS.uuid.label": "Active Effect",
+    "FIELDS.uuid.hint": "The Active Effect to add or reset duration.",
+    "FIELDS.name.label": "Effect Name",
+    "FIELDS.name.hint": "The name of the active effect to enable/disable/delete."
+  }
 }
