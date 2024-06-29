@@ -142,20 +142,15 @@ function ActiveEffectMixin(Base) {
     }
 
     async _enableOrDisable(actor, disabled) {
-      const existingEffect = actor.effects.getName(this.name);
+      const effect = await fromUuid(this.uuid);
+      const existingEffect = actor.effects.getName(effect.name);
       if (existingEffect) return existingEffect.update({ disabled });
     }
 
     async _deleteEffect(actor) {
-      // find name
-      let name = this.name;
-      if (!name && this.uuid) {
-        const effect = await fromUuid(this.uuid);
-        name = effect.name;
-      }
-      // get effect and delete it
-      const existingEffect = actor.effects.getName(name);
-      if (existingEffect) await existingEffect.delete();
+      const effect = await fromUuid(this.uuid);
+      const existingEffect = actor.effects.getName(effect.name);
+      if (existingEffect) return existingEffect.delete();
     }
   };
 }
@@ -182,8 +177,7 @@ class ActiveEffectEventsRegionBehaviorType extends ActiveEffectMixin(
     return {
       events: this._createEventsField(),
       action: this._createActionField(),
-      uuid: new DocumentUUIDField({ type: "ActiveEffect" }),
-      name: new StringField({ required: false, blank: false, nullable: false }),
+      uuid: new DocumentUUIDField({ type: "ActiveEffect" })
     };
   }
 }
