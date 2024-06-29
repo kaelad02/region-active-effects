@@ -47,3 +47,7 @@ Some example uses are:
 - Apply a status effect when moving into the Region
 - Removing a status effect when exiting the Region
 - Toggle a status effect at the start of every combat round
+
+## System-Specific Changes
+
+The [Pathfinder Second Edition](https://foundryvtt.com/packages/pf2e) system uses Conditions and Effects instead of the standard Status Effects and Active Effects. This module changes the behaviors to work with these instead.
