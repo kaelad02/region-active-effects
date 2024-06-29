@@ -50,6 +50,10 @@ export function init() {
   );
 }
 
+/*************
+ * Conditions
+ ************/
+
 function ConditionMixin(Base) {
   return class Condition extends Base {
     static _conditionChoices() {
@@ -88,6 +92,9 @@ class ConditionRegionBehaviorType extends ConditionMixin(BaseStatusRegionBehavio
   }
 }
 
+/**
+ * The data model for a behavior that toggles, adds, or removes a Condition based on the subscribed event.
+ */
 class ConditionEventsRegionBehaviorType extends ConditionMixin(BaseStatusEventsRegionBehaviorType) {
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
@@ -108,6 +115,41 @@ class ConditionEventsRegionBehaviorType extends ConditionMixin(BaseStatusEventsR
       action: this._createActionField(),
     };
   }
+}
+
+/**********
+ * Effects
+ *********/
+
+function Pf2eEffectMixin(Base) {
+  return class Pf2eEffect extends Base {
+    /**
+     * Helper function to validate the
+     */
+    static validateItemType(value, options) {
+      const doc = fromUuidSync(value);
+      if (doc.type !== "effect") throw new Error("The Item type must be Effect");
+    }
+
+    async _addEffect(actor) {
+      const effect = await fromUuid(this.uuid);
+      const source = effect.toObject();
+      // TODO should I add my own flag to replicate origin on the active effect?
+      source.flags = foundry.utils.mergeObject(source.flags ?? {}, {
+        core: { sourceId: this.uuid },
+      });
+
+      const existing = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === this.uuid);
+      if (!existing) await actor.createEmbeddedDocuments("Item", [source]);
+    }
+
+    async _deleteEffect(actor) {
+      const existingEffect = actor.itemTypes.effect.find(
+        (e) => e.flags.core?.sourceId === this.uuid
+      );
+      if (existingEffect) await existingEffect.delete();
+    }
+  };
 }
 
 /**
@@ -148,38 +190,4 @@ class Pf2eEffectEventsRegionBehaviorType extends Pf2eEffectMixin(
       }),
     };
   }
-}
-
-/**
- * A mixin for the Active Effect behaviors based on PF2e's Effect item type.
- */
-function Pf2eEffectMixin(Base) {
-  return class Pf2eEffect extends Base {
-    /**
-     * Helper function to validate the
-     */
-    static validateItemType(value, options) {
-      const doc = fromUuidSync(value);
-      if (doc.type !== "effect") throw new Error("The Item type must be Effect");
-    }
-
-    async _addEffect(actor) {
-      const effect = await fromUuid(this.uuid);
-      const source = effect.toObject();
-      // TODO should I add my own flag to replicate origin on the active effect?
-      source.flags = foundry.utils.mergeObject(source.flags ?? {}, {
-        core: { sourceId: this.uuid },
-      });
-
-      const existing = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === this.uuid);
-      if (!existing) await actor.createEmbeddedDocuments("Item", [source]);
-    }
-
-    async _deleteEffect(actor) {
-      const existingEffect = actor.itemTypes.effect.find(
-        (e) => e.flags.core?.sourceId === this.uuid
-      );
-      if (existingEffect) await existingEffect.delete();
-    }
-  };
 }

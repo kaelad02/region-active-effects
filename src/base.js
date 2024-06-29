@@ -15,6 +15,10 @@ const TOKEN_EVENTS = [
   CONST.REGION_EVENTS.TOKEN_TURN_START,
 ];
 
+/*****************
+ * Status Effects
+ ****************/
+
 /**
  * The base class for the `statusEffect` Region Behavior. To use it as a Region Behavior, extend the class and add
  * the `static defineSchema` and `_toggleStatus` functions.
@@ -87,6 +91,10 @@ export class BaseStatusEventsRegionBehaviorType extends RegionBehaviorType {
     this._toggleStatus(actor, active);
   }
 }
+
+/*****************
+ * Active Effects
+ ****************/
 
 /**
  * The base class for the `activeEffect` Region Behavior. To use it as a Region Behavior, extend the class and add
