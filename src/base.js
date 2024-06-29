@@ -1,5 +1,5 @@
 const { RegionBehaviorType } = foundry.data.regionBehaviors;
-const { StringField } = foundry.data.fields;
+const { BooleanField, StringField } = foundry.data.fields;
 
 /** The Region Events that operate on a token. */
 const TOKEN_EVENTS = [
@@ -14,6 +14,41 @@ const TOKEN_EVENTS = [
   CONST.REGION_EVENTS.TOKEN_TURN_END,
   CONST.REGION_EVENTS.TOKEN_TURN_START,
 ];
+
+/**
+ * The base class for the `statusEffect` Region Behavior. To use it as a Region Behavior, extend the class and add
+ * the `static defineSchema`, `_addStatusEffect`, and `_removeStatusEffect` functions.
+ */
+class BaseStatusRegionBehaviorType extends RegionBehaviorType {
+  static LOCALIZATION_PREFIXES = ["RAE.TYPES.statusEffect"];
+
+  static async #onTokenEnter(event) {
+    // quick data verification
+    const actor = event.data?.token?.actor;
+    if (!actor || !this.statusId) return;
+
+    // only run on triggering user
+    if (!event.user.isSelf) return;
+
+    this._addStatusEffect(actor);
+  }
+
+  static async #onTokenExit(event) {
+    // quick data verification
+    const actor = event.data?.token?.actor;
+    if (!actor || !this.statusId) return;
+
+    // only run on triggering user
+    if (!event.user.isSelf) return;
+
+    this._removeStatusEffect(actor);
+  }
+
+  static events = {
+    [CONST.REGION_EVENTS.TOKEN_ENTER]: this.#onTokenEnter,
+    [CONST.REGION_EVENTS.TOKEN_EXIT]: this.#onTokenExit,
+  };
+}
 
 /**
  * The base class for the `activeEffect` Region Behavior. To use it as a Region Behavior, extend the class and add
@@ -64,7 +99,7 @@ export class BaseEffectEventsRegionBehaviorType extends RegionBehaviorType {
   static NAME_ACTIONS = ["enable", "disable", "delete"];
 
   static _createEventsField() {
-    return super._createEventsField({events: TOKEN_EVENTS});
+    return super._createEventsField({ events: TOKEN_EVENTS });
   }
 
   static _createActionField({ actions } = {}) {
