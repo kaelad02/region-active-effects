@@ -41,8 +41,7 @@ export function init() {
  * The data model for a PF2e-specific behavior that adds an Effect item while inside the Region.
  */
 class Pf2eEffectRegionBehaviorType extends Pf2eEffectMixin(BaseEffectRegionBehaviorType) {
-  // TODO
-  // static LOCALIZATION_PREFIXES = ["RAE.TYPES.pf2e-effect"];
+  static LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "RAE.TYPES.pf2e-effect"];
 
   static defineSchema() {
     return {
@@ -60,8 +59,11 @@ class Pf2eEffectRegionBehaviorType extends Pf2eEffectMixin(BaseEffectRegionBehav
 class Pf2eEffectEventsRegionBehaviorType extends Pf2eEffectMixin(
   BaseEffectEventsRegionBehaviorType
 ) {
-  // TODO
-  // static LOCALIZATION_PREFIXES = ["RAE.TYPES.pf2e-effectEvents"];
+  static LOCALIZATION_PREFIXES = [
+    ...super.LOCALIZATION_PREFIXES,
+    "RAE.TYPES.pf2e-effect",
+    "RAE.TYPES.pf2e-effectEvents",
+  ];
 
   static defineSchema() {
     return {
