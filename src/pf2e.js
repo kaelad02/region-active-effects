@@ -5,8 +5,7 @@ import {
   BaseEffectEventsRegionBehaviorType,
 } from "./base.js";
 
-const { RegionBehaviorType } = foundry.data.regionBehaviors;
-const { BooleanField, DocumentUUIDField, StringField } = foundry.data.fields;
+const { DocumentUUIDField, StringField } = foundry.data.fields;
 
 export function init() {
   // register the DataModel

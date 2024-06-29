@@ -1,5 +1,5 @@
 const { RegionBehaviorType } = foundry.data.regionBehaviors;
-const { BooleanField, StringField } = foundry.data.fields;
+const { StringField } = foundry.data.fields;
 
 /** The Region Events that operate on a token. */
 const TOKEN_EVENTS = [
