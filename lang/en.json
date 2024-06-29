@@ -5,6 +5,12 @@
     "region-active-effects.activeEffect": "Active Effect",
     "region-active-effects.activeEffectEvents": "Active Effect Events"
   },
+  "TYPES.RegionBehavior.pf2e": {
+    "region-active-effects.statusEffect": "Condition",
+    "region-active-effects.statusEffectEvents": "Condition Events",
+    "region-active-effects.activeEffect": "Effect",
+    "region-active-effects.activeEffectEvents": "Effect Events"
+  },
   "RAE.ACTIONS": {
     "add.label": "Add",
     "resetDuration.label": "Reset Duration",

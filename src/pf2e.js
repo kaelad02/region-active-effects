@@ -25,6 +25,15 @@ export function init() {
     "region-active-effects.activeEffectEvents": CONFIG.Item.typeIcons.effect,
   });
 
+  // change the type labels
+  const prefix = "TYPES.RegionBehavior.pf2e";
+  Object.assign(CONFIG.RegionBehavior.typeLabels, {
+    "region-active-effects.statusEffect": `${prefix}.region-active-effects.statusEffect`,
+    "region-active-effects.statusEffectEvents": `${prefix}.region-active-effects.statusEffectEvents`,
+    "region-active-effects.activeEffect": `${prefix}.region-active-effects.activeEffect`,
+    "region-active-effects.activeEffectEvents": `${prefix}.region-active-effects.activeEffectEvents`,
+  });
+
   // register the Sheet
   DocumentSheetConfig.registerSheet(
     RegionBehavior,
