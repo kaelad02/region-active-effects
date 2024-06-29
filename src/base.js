@@ -141,8 +141,6 @@ export class BaseEffectEventsRegionBehaviorType extends RegionBehaviorType {
   static LOCALIZATION_PREFIXES = ["RAE.TYPES.activeEffect", "RAE.TYPES.activeEffectEvents"];
 
   static ALL_ACTIONS = ["add", "resetDuration", "enable", "disable", "delete"];
-  static UUID_ACTIONS = ["add", "resetDuration"];
-  static NAME_ACTIONS = ["enable", "disable", "delete"];
 
   static _createEventsField() {
     return super._createEventsField({ events: TOKEN_EVENTS });
@@ -159,13 +157,6 @@ export class BaseEffectEventsRegionBehaviorType extends RegionBehaviorType {
         return obj;
       }, {}),
     });
-  }
-
-  static validateJoint(data) {
-    if (this.UUID_ACTIONS.includes(data.action) && !data.uuid)
-      throw new Error(`The uuid field is required for the ${data.action} action`);
-    if (this.NAME_ACTIONS.includes(data.action) && !data.name)
-      throw new Error(`The name field is required for the ${data.action} action`);
   }
 
   async _handleRegionEvent(event) {
