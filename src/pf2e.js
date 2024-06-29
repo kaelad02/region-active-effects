@@ -1,4 +1,9 @@
-import { BaseEffectRegionBehaviorType, BaseEffectEventsRegionBehaviorType } from "./base.js";
+import {
+  BaseStatusRegionBehaviorType,
+  BaseStatusEventsRegionBehaviorType,
+  BaseEffectRegionBehaviorType,
+  BaseEffectEventsRegionBehaviorType,
+} from "./base.js";
 
 const { RegionBehaviorType } = foundry.data.regionBehaviors;
 const { BooleanField, DocumentUUIDField, StringField } = foundry.data.fields;
@@ -6,16 +11,16 @@ const { BooleanField, DocumentUUIDField, StringField } = foundry.data.fields;
 export function init() {
   // register the DataModel
   Object.assign(CONFIG.RegionBehavior.dataModels, {
-    //"region-active-effects.statusEffect": StatusEffectRegionBehaviorType,
-    //"region-active-effects.statusEffectEvents": StatusEffectEventsRegionBehaviorType,
+    "region-active-effects.statusEffect": ConditionRegionBehaviorType,
+    "region-active-effects.statusEffectEvents": ConditionEventsRegionBehaviorType,
     "region-active-effects.activeEffect": Pf2eEffectRegionBehaviorType,
     "region-active-effects.activeEffectEvents": Pf2eEffectEventsRegionBehaviorType,
   });
 
   // add type icons
   Object.assign(CONFIG.RegionBehavior.typeIcons, {
-    //"region-active-effects.statusEffect": "fa-solid fa-person-burst",
-    //"region-active-effects.statusEffectEvents": "fa-solid fa-person-burst",
+    "region-active-effects.statusEffect": CONFIG.Item.typeIcons.condition,
+    "region-active-effects.statusEffectEvents": CONFIG.Item.typeIcons.condition,
     "region-active-effects.activeEffect": CONFIG.Item.typeIcons.effect,
     "region-active-effects.activeEffectEvents": CONFIG.Item.typeIcons.effect,
   });
@@ -27,14 +32,74 @@ export function init() {
     foundry.applications.sheets.RegionBehaviorConfig,
     {
       types: [
-        //"region-active-effects.statusEffect",
-        //"region-active-effects.statusEffectEvents",
+        "region-active-effects.statusEffect",
+        "region-active-effects.statusEffectEvents",
         "region-active-effects.activeEffect",
         "region-active-effects.activeEffectEvents",
       ],
       makeDefault: true,
     }
   );
+}
+
+function ConditionMixin(Base) {
+  return class Condition extends Base {
+    static _conditionChoices() {
+      return game.pf2e.ConditionManager.conditionsSlugs.reduce((obj, c) => {
+        obj[c] = `PF2E.condition.${c}.name`;
+        return obj;
+      }, {});
+    }
+
+    async _toggleStatus(actor, active) {
+      // TODO soon, replace with: actor.toggleCondition(this.statusId, {active})
+
+      if (active) await actor.increaseCondition(this.statusId);
+      else if (active === false) await actor.decreaseCondition(this.statusId);
+      else await actor.toggleCondition(this.statusId);
+    }
+  };
+}
+
+/**
+ * The data model for a behavior that applies a Condition while inside the Region.
+ */
+class ConditionRegionBehaviorType extends ConditionMixin(BaseStatusRegionBehaviorType) {
+  static LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "RAE.TYPES.pf2e-condition"];
+
+  static defineSchema() {
+    return {
+      statusId: new StringField({
+        required: true,
+        blank: false,
+        nullable: true,
+        initial: null,
+        choices: this._conditionChoices,
+      }),
+    };
+  }
+}
+
+class ConditionEventsRegionBehaviorType extends ConditionMixin(BaseStatusEventsRegionBehaviorType) {
+  static LOCALIZATION_PREFIXES = [
+    ...super.LOCALIZATION_PREFIXES,
+    "RAE.TYPES.pf2e-condition",
+    "RAE.TYPES.pf2e-conditionEvents",
+  ];
+
+  static defineSchema() {
+    return {
+      events: this._createEventsField(),
+      statusId: new StringField({
+        required: true,
+        blank: false,
+        nullable: true,
+        initial: null,
+        choices: this._conditionChoices,
+      }),
+      action: this._createActionField(),
+    };
+  }
 }
 
 /**

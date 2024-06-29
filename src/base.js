@@ -17,9 +17,9 @@ const TOKEN_EVENTS = [
 
 /**
  * The base class for the `statusEffect` Region Behavior. To use it as a Region Behavior, extend the class and add
- * the `static defineSchema`, `_addStatusEffect`, and `_removeStatusEffect` functions.
+ * the `static defineSchema` and `_toggleStatus` functions.
  */
-class BaseStatusRegionBehaviorType extends RegionBehaviorType {
+export class BaseStatusRegionBehaviorType extends RegionBehaviorType {
   static LOCALIZATION_PREFIXES = ["RAE.TYPES.statusEffect"];
 
   static async #onTokenEnter(event) {
@@ -30,7 +30,7 @@ class BaseStatusRegionBehaviorType extends RegionBehaviorType {
     // only run on triggering user
     if (!event.user.isSelf) return;
 
-    this._addStatusEffect(actor);
+    this._toggleStatus(actor, true);
   }
 
   static async #onTokenExit(event) {
@@ -41,13 +41,51 @@ class BaseStatusRegionBehaviorType extends RegionBehaviorType {
     // only run on triggering user
     if (!event.user.isSelf) return;
 
-    this._removeStatusEffect(actor);
+    this._toggleStatus(actor, false);
   }
 
   static events = {
     [CONST.REGION_EVENTS.TOKEN_ENTER]: this.#onTokenEnter,
     [CONST.REGION_EVENTS.TOKEN_EXIT]: this.#onTokenExit,
   };
+}
+
+/**
+ * The base class for the `statusEffectEvents` Region Behavior. To use it as a Region Behavior, extend the class and add
+ * the `static defineSchema` and `_toggleStatus` functions.
+ */
+export class BaseStatusEventsRegionBehaviorType extends RegionBehaviorType {
+  static LOCALIZATION_PREFIXES = ["RAE.TYPES.statusEffect", "RAE.TYPES.statusEffectEvents"];
+
+  static _createEventsField() {
+    return super._createEventsField({ events: TOKEN_EVENTS });
+  }
+
+  static _createActionField() {
+    return new StringField({
+      required: true,
+      blank: false,
+      nullable: false,
+      initial: "toggle",
+      choices: {
+        toggle: "RAE.TYPES.statusEffectEvents.FIELDS.action.choices.toggle",
+        apply: "RAE.TYPES.statusEffectEvents.FIELDS.action.choices.apply",
+        remove: "RAE.TYPES.statusEffectEvents.FIELDS.action.choices.remove",
+      },
+    });
+  }
+
+  async _handleRegionEvent(event) {
+    // quick data verification
+    const actor = event.data?.token?.actor;
+    if (!actor || !this.statusId) return;
+
+    // only run once by active GM
+    if (!game.users.activeGM?.isSelf) return;
+
+    const active = this.action === "apply" ? true : this.action === "remove" ? false : undefined;
+    this._toggleStatus(actor, active);
+  }
 }
 
 /**
