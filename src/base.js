@@ -161,13 +161,6 @@ export class BaseEffectEventsRegionBehaviorType extends RegionBehaviorType {
     });
   }
 
-  static validateJoint(data) {
-    if (this.UUID_ACTIONS.includes(data.action) && !data.uuid)
-      throw new Error(`The uuid field is required for the ${data.action} action`);
-    if (this.NAME_ACTIONS.includes(data.action) && !data.name)
-      throw new Error(`The name field is required for the ${data.action} action`);
-  }
-
   async _handleRegionEvent(event) {
     // quick data verification
     const actor = event.data?.token?.actor;
