@@ -1,4 +1,4 @@
-import { BaseEffectRegionBehaviorType } from "base.js";
+import { BaseEffectRegionBehaviorType } from "./base.js";
 
 const { RegionBehaviorType } = foundry.data.regionBehaviors;
 const { BooleanField, DocumentUUIDField, StringField } = foundry.data.fields;
@@ -45,7 +45,7 @@ function Pf2eEffectMixin(Base) {
     }
 
     async _deleteEffect(actor) {
-      const existingEffect = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === uuid);
+      const existingEffect = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === this.uuid);
       if (existingEffect) await existingEffect.delete();
     }
   };
