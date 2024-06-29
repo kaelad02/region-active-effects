@@ -1,16 +1,72 @@
-import { BaseEffectRegionBehaviorType } from "./base.js";
+import { BaseEffectRegionBehaviorType, BaseEffectEventsRegionBehaviorType } from "./base.js";
 
 const { RegionBehaviorType } = foundry.data.regionBehaviors;
 const { BooleanField, DocumentUUIDField, StringField } = foundry.data.fields;
 
+export function init() {
+  // register the DataModel
+  Object.assign(CONFIG.RegionBehavior.dataModels, {
+    //"region-active-effects.statusEffect": StatusEffectRegionBehaviorType,
+    //"region-active-effects.statusEffectEvents": StatusEffectEventsRegionBehaviorType,
+    "region-active-effects.activeEffect": Pf2eEffectRegionBehaviorType,
+    "region-active-effects.activeEffectEvents": Pf2eEffectEventsRegionBehaviorType,
+  });
+
+  // add type icons
+  Object.assign(CONFIG.RegionBehavior.typeIcons, {
+    //"region-active-effects.statusEffect": "fa-solid fa-person-burst",
+    //"region-active-effects.statusEffectEvents": "fa-solid fa-person-burst",
+    "region-active-effects.activeEffect": CONFIG.Item.typeIcons.effect,
+    "region-active-effects.activeEffectEvents": CONFIG.Item.typeIcons.effect,
+  });
+
+  // register the Sheet
+  DocumentSheetConfig.registerSheet(
+    RegionBehavior,
+    "region-active-effects",
+    foundry.applications.sheets.RegionBehaviorConfig,
+    {
+      types: [
+        //"region-active-effects.statusEffect",
+        //"region-active-effects.statusEffectEvents",
+        "region-active-effects.activeEffect",
+        "region-active-effects.activeEffectEvents",
+      ],
+      makeDefault: true,
+    }
+  );
+}
+
 /**
  * The data model for a PF2e-specific behavior that adds an Effect item while inside the Region.
  */
-export class Pf2eEffectRegionBehaviorType extends Pf2eEffectMixin(BaseEffectRegionBehaviorType) {
-  static LOCALIZATION_PREFIXES = ["RAE.TYPES.pf2e-effect"];
+class Pf2eEffectRegionBehaviorType extends Pf2eEffectMixin(BaseEffectRegionBehaviorType) {
+  // TODO
+  // static LOCALIZATION_PREFIXES = ["RAE.TYPES.pf2e-effect"];
 
   static defineSchema() {
     return {
+      uuid: new DocumentUUIDField({
+        type: "Item",
+        validate: this.validateItemType,
+      }),
+    };
+  }
+}
+
+/**
+ * The data model for a PF2e-specific behavior that performs actions with an Effect item wbased on the subscribed event.
+ */
+class Pf2eEffectEventsRegionBehaviorType extends Pf2eEffectMixin(
+  BaseEffectEventsRegionBehaviorType
+) {
+  // TODO
+  // static LOCALIZATION_PREFIXES = ["RAE.TYPES.pf2e-effectEvents"];
+
+  static defineSchema() {
+    return {
+      events: this._createEventsField(),
+      action: this._createActionField({ actions: ["add", "delete"] }),
       uuid: new DocumentUUIDField({
         type: "Item",
         validate: this.validateItemType,
@@ -45,7 +101,9 @@ function Pf2eEffectMixin(Base) {
     }
 
     async _deleteEffect(actor) {
-      const existingEffect = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === this.uuid);
+      const existingEffect = actor.itemTypes.effect.find(
+        (e) => e.flags.core?.sourceId === this.uuid
+      );
       if (existingEffect) await existingEffect.delete();
     }
   };
