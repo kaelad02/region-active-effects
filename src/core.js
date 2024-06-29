@@ -34,16 +34,8 @@ export function init() {
         "region-active-effects.statusEffect",
         "region-active-effects.statusEffectEvents",
         "region-active-effects.activeEffect",
+        "region-active-effects.activeEffectEvents",
       ],
-      makeDefault: true,
-    }
-  );
-  DocumentSheetConfig.registerSheet(
-    RegionBehavior,
-    "region-active-effects",
-    ActiveEffectEventsRegionBehaviorConfig,
-    {
-      types: ["region-active-effects.activeEffectEvents"],
       makeDefault: true,
     }
   );
@@ -177,50 +169,7 @@ class ActiveEffectEventsRegionBehaviorType extends ActiveEffectMixin(
     return {
       events: this._createEventsField(),
       action: this._createActionField(),
-      uuid: new DocumentUUIDField({ type: "ActiveEffect" })
+      uuid: new DocumentUUIDField({ type: "ActiveEffect" }),
     };
-  }
-}
-
-/**
- * A custom sheet that hides/shows the uuid and name fields based on the action.
- */
-class ActiveEffectEventsRegionBehaviorConfig extends foundry.applications.sheets
-  .RegionBehaviorConfig {
-  _attachPartListeners(partId, htmlElement, options) {
-    super._attachPartListeners(partId, htmlElement, options);
-
-    if (partId === "form") {
-      // Add change listener to action to hide/show other fields
-      const action = htmlElement.querySelector("select[name='system.action']");
-      action.addEventListener("change", this.#onActionChange.bind(this));
-      // Set initial state of those fields
-      this.#toggleVisibility(action);
-    }
-  }
-
-  #onActionChange(event) {
-    const target = event.target;
-    this.#toggleVisibility(target);
-  }
-
-  #toggleVisibility(actionInput) {
-    const fieldset = actionInput.closest("fieldset");
-    const action = actionInput.value;
-
-    let showUuid,
-      showName = false;
-    if (ActiveEffectEventsRegionBehaviorType.UUID_ACTIONS.includes(action)) showUuid = true;
-    else if (ActiveEffectEventsRegionBehaviorType.NAME_ACTIONS.includes(action)) showName = true;
-
-    const uuid = fieldset.querySelector("div.form-group:has([name='system.uuid'])");
-    const name = fieldset.querySelector("div.form-group:has([name='system.name'])");
-
-    function change(element, show) {
-      if (show) element.classList.remove("hidden");
-      else element.classList.add("hidden");
-    }
-    change(uuid, showUuid);
-    change(name, showName);
   }
 }
