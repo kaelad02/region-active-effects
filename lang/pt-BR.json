@@ -1,0 +1,56 @@
+{
+  "TYPES.RegionBehavior": {
+    "region-active-effects.statusEffect": "Efeito de Status",
+    "region-active-effects.statusEffectEvents": "Eventos de Efeito de Status",
+    "region-active-effects.activeEffect": "Efeito Ativo",
+    "region-active-effects.activeEffectEvents": "Eventos de Efeito Ativo"
+  },
+  "TYPES.RegionBehavior.pf2e": {
+    "region-active-effects.statusEffect": "Condição",
+    "region-active-effects.statusEffectEvents": "Eventos de Condição",
+    "region-active-effects.activeEffect": "Efeito",
+    "region-active-effects.activeEffectEvents": "Eventos de Efeito"
+  },
+  "RAE.ACTIONS": {
+    "add.label": "Adicionar",
+    "resetDuration.label": "Redefinir Duração",
+    "enable.label": "Habilitar",
+    "disable.label": "Desabilitar",
+    "delete.label": "Excluir"
+  },
+  "RAE.TYPES.statusEffect": {
+    "FIELDS.statusId.label": "Status",
+    "FIELDS.statusId.hint": "O efeito de status a ser aplicado quando um dos eventos ocorrer.",
+    "FIELDS.overlay.label": "Sobreposição",
+    "FIELDS.overlay.hint": "Exibe o efeito de status como uma sobreposição."
+  },
+  "RAE.TYPES.statusEffectEvents": {
+    "FIELDS.action.choices.toggle": "Alternar",
+    "FIELDS.action.choices.apply": "Aplicar",
+    "FIELDS.action.choices.remove": "Remover",
+    "FIELDS.action.label": "Ação",
+    "FIELDS.action.hint": "O que fazer com o efeito de status."
+  },
+  "RAE.TYPES.activeEffect": {
+    "FIELDS.uuid.label": "Efeito Ativo",
+    "FIELDS.uuid.hint": "O Efeito Ativo a ser usado quando um token entrar na Região.",
+    "FIELDS.disable.label": "Desabilitar Efeito",
+    "FIELDS.disable.hint": "Desabilita o Efeito Ativo ao sair da Região ao invés de excluí-lo."
+  },
+  "RAE.TYPES.activeEffectEvents": {
+    "FIELDS.action.label": "Ação",
+    "FIELDS.action.hint": "O que fazer com um Efeito Ativo.",
+    "FIELDS.uuid.label": "Efeito Ativo",
+    "FIELDS.uuid.hint": "O Efeito Ativo para adicionar ou redefinir a duração.",
+    "FIELDS.name.label": "Nome do Efeito",
+    "FIELDS.name.hint": "O nome do Efeito Ativo para habilitar/desabilitar/excluir."
+  },
+  "RAE.TYPES.pf2e-effect": {
+    "FIELDS.uuid.label": "Efeito",
+    "FIELDS.uuid.hint": "O Efeito a ser usado quando um token entrar na Região."
+  },
+  "RAE.TYPES.pf2e-effectEvents": {
+    "FIELDS.action.label": "Ação",
+    "FIELDS.action.hint": "O que fazer com um efeito."
+  }
+}
